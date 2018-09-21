@@ -1,0 +1,11 @@
+./node_modules/
+./idea
+./dist/
+dist
+node_modules
+text/
+.idea/
+.vscode/
+package-lock.json
+file*
+*.html

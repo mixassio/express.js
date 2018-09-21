@@ -1,0 +1,22 @@
+extends ../layouts/app.pug
+
+block content
+  div
+    h1: a(href='/') Main page
+    a(href='/posts/new') New post
+  // <table class="table"><tbody>
+  // <tr><th>Title</th></tr>
+  // <tr><td><a href="/posts/1">hello</a></td></tr>
+  // <tr><td><a href="/posts/2">nodejs</a></td></tr>
+  // <tr><td><a href="/posts/3">asdfa</a></td></tr>
+  // <tr><td><a href="/posts/4">111</a></td></tr>
+  // </tbody></table>
+
+  table
+    tr
+      th Title
+    tr
+      - posts.map(el => {
+      td: a(href='/posts/' + el.id) #{el.title} 
+    tr
+      -})
