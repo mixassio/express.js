@@ -1,5 +1,4 @@
 extends ../layouts/app.pug
-p 'hello world'
 block content
   // <form action="/posts" method="post">
   //   <div><label>Title<sup>*</sup></label><input name="title"></div>
@@ -7,15 +6,14 @@ block content
   //   <input type="submit" value="Save">
   //  </form>
 
-  p 'hello world'
   h3 New Blog Post
-  form(action='/posts', method='post')
+  form(action='/posts' method='post')
     div
-        label
-            | Title
-            sup *
-    input(name='title', value=form.title)
-    if errors.title
+      label
+        | Title
+        sup *
+      input(name='title' value=form.title)
+      if errors.title
         p= errors.title
     div
       label

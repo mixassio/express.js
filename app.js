@@ -20,22 +20,33 @@ export default () => {
   app.get('/posts', (req, res) => {
     res.render('./posts/index', { posts });
   });
-  app.get('/posts/:id', (req, res) => {
-    const { id } = req.params;
-    const post = posts[id];
-    res.render('./posts/show', { ...post });
-  });
-
   app.get('/posts/new', (req, res) => {
     res.render('posts/new', { form: {}, errors: {} });
   });
-
-  app.post('/posts', (req, res) => {
-    const { title, body } = req.query;
-    const post = new Post(title, body);
-    posts.push(post);
-    res.redirect(302, `/posts/${post.id}`);
+  app.get('/posts/:id', (req, res) => {
+    const { id } = req.params;
+    const post = posts[id - 1];
+    res.render('posts/show', { ...post });
   });
-
+  app.post('/posts', (req, res) => {
+    const { title, body } = req.body;
+    const errors = {};
+    if (!title) {
+      errors.title = "Can't be blank";
+    }
+    if (!body) {
+      errors.body = "Can't be blank";
+    }
+    if (Object.keys(errors).length === 0) {
+      const post = new Post(title, body);
+      posts.push(post);
+      res.redirect(`/posts/${post.id}`);
+      return;
+    }
+    res.status(422);
+    res.render('posts/new', { form: req.body, errors });
+  });
+  /*
+  */
   return app;
 };

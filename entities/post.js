@@ -1,7 +1,8 @@
 
 export default class Post {
-  static id = 0;
+  static id = 1;
   constructor(title, body) {
+    this.id = Post.id;
     this.title = title;
     this.body = body;
     Post.id += 1;
