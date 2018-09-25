@@ -8,7 +8,7 @@ describe('requests', () => {
     jasmine.addMatchers(matchers);
   });
 
-  test('GET /', async () => {
+  it('GET /', async () => {
     const res = await request(solution()).get('/');
     expect(res).toHaveHTTPStatus(200);
   });
@@ -38,13 +38,18 @@ describe('requests', () => {
     expect(res).toHaveHTTPStatus(422);
   });
 
-  it('GET /posts/:id', async () => {
-    const query = request(solution());
-    const res1 = await query
+  it('GET posts/:id/edit', async () => {
+    const app = solution();
+    const res1 = await request(app)
       .post('/posts')
       .type('form')
       .send({ title: 'post title', body: 'post body' });
-    const res2 = await query.get(res1.headers.location);
+    expect(res1).toHaveHTTPStatus(302);
+    const url = res1.headers.location;
+    const res2 = await request(app)
+      .get(url);
     expect(res2).toHaveHTTPStatus(200);
   });
+
+
 });
